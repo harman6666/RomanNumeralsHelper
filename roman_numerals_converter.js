@@ -38,7 +38,7 @@ const RomanNumerals = (function () {
                 while (number > 0) {
                     // Get the placement of the number, which decimal place are we in?
                     // 4th place: 1000, 2nd place: 10, last digit: 1
-                    var numberOffset = Math.pow(10, input.length - key - 1);
+                    let numberOffset = Math.pow(10, input.length - key - 1);
                     // If we have a 9, we do the next 10 minus the 1.
                     if (number === 9) {
                         outputResult += data[numberOffset];
