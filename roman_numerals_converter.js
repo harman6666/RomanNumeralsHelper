@@ -4,10 +4,10 @@
  * Date: Sept 16th 2018
  *******************************************/
 
-var RomanNumerals = (function () {
+const RomanNumerals = (function () {
     // Create a global array of all the numbers. So, we can use them in both the below functions.
     // And also added Vinculum system values for the larger numbers.
-    var data = [{1: 'I'}];
+    let data = [{1: 'I'}];
     data[1] = 'I';
     data[5] = 'V';
     data[10] = 'X';
@@ -22,36 +22,34 @@ var RomanNumerals = (function () {
     data[500000] = 'D̅';
     data[1000000] = 'M̅';
 
-    function numberToRoman(num) {
+    const numberToRoman = (num) => {
         try {
-            var input = num.toString(); // Converting it into string to check the negative and decimal value in the input.
-            if ((input.indexOf('.') != -1) || (input.indexOf('-') != -1)) {
-                throw new Error("SORRY, there is no concept of parts of a number or negative numbers. Minus signs and decimal points not allowed (NO '.' OR '-' ALLOWED)");
+            let input = num.toString();
+            if (input.match(/[^\d]/)) { //Used this regex because when we are going to use this helper then on input field we will be getting values in string. So this will work for both numbers and string(but with characters).
+                throw new Error("SORRY, there is no concept of parts of a number or negative numbers. Minus signs, decimal points and charters are not allowed (NO '.' OR '-' ALLOWED)");
             }
-            // Removing anything that is not a numberical value
-            input = input.replace(/[^\d]/g, '');
 
             if (input >= 4000000) {
                 throw new Error("This number is way too big, Romans numeric system went from 1 to 3,999,999");
             }
-            var outputResult = '';
-            for (var key in input) {
-                var number = parseInt(input[key]);
+            let outputResult = '';
+            for (let key in input) {
+                let number = parseInt(input[key]);
                 while (number > 0) {
                     // Get the placement of the number, which decimal place are we in?
                     // 4th place: 1000, 2nd place: 10, last digit: 1
                     var numberOffset = Math.pow(10, input.length - key - 1);
                     // If we have a 9, we do the next 10 minus the 1.
-                    if (number == 9) {
+                    if (number === 9) {
                         outputResult += data[numberOffset];
                         outputResult += data[numberOffset * 10];
-                        number -= 9;
+                        number -= 9;    
                     // Else, if the number is bigger than 5, take away the 5 and add the rest
                     } else if (number >= 5) {
                         outputResult += data[numberOffset * 5];
                         number -= 5;
                     // Else, if the number happens to be 4, then do like this 5 - 1
-                    } else if (number == 4) {
+                    } else if (number === 4) {
                         outputResult += data[numberOffset];
                         outputResult += data[numberOffset * 5];
                         number -= 4;
@@ -69,7 +67,7 @@ var RomanNumerals = (function () {
     }
 
 
-    function romanToNumber(input) {
+    const romanToNumber = (input) => {
         try {
             // If there are any symbols other than a roman numberal, we will get an error.
             if (input.match(/[^ivxlcdmIVXLCDM̅]/) != null) {
@@ -80,10 +78,10 @@ var RomanNumerals = (function () {
                 throw new Error("It's against the rules to have 4 or more in a row: " + input.match(/(.[̅]*)\1\1\1/));
             }
             input = input.toUpperCase();
-            var outputResult = 0;
+            let outputResult = 0;
             // Go through each character from left to right
-            for (var key = 0; key < input.length; key++) {
-                var myChar = input[key];
+            for (let key = 0; key < input.length; key++) {
+                let myChar = input[key];
                 if (input[key + 1] == "̅") {
                     myChar += input[key + 1];
                     key += 1;
@@ -93,7 +91,7 @@ var RomanNumerals = (function () {
                     continue;
                 }
 
-                var nextChar = input[key + 1];
+                let nextChar = input[key + 1];
                 // If the character is supposed to have a bar, add it to the value
                 if (input[key + 2] == "̅") {
                     nextChar += input[key + 2];
