@@ -17,6 +17,17 @@ Let's take a look at two special cases 4 and 9. What happens here is that instea
 
 ![example](https://s15.postimg.cc/8dz4zg5yz/Screen_Shot_2018-09-16_at_2.36.11_PM.png)
 
+Usage 
+---------
+First of all, include the script in the starting of the file so it gets loaded initially. 
+And when you want to use. Use it with the global declared variable i.e. RomanNumerals by writing function name after that.
+Example:-
+```
+ RomanNumerals.toRoman(1000); // should return 'M'
+ RomanNumerals.fromRoman('M'); // should return 1000
+ RomanNumerals.toRoman(5000); // should return 'V̅' i.e. upper bar represent 1000 and V represent 5.
+```
+
 Features/Functionalities
 ---------
 
